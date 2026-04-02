@@ -21,6 +21,8 @@ React 18 + Vite + TypeScript strict + React Router v6 + shadcn/ui + Tailwind
 - NEVER import upward or skip layers
 
 ## Specs are the source of truth
-- Coding standards: `openspec/specs/engineering-standards/spec.md`
-- Domain rules: `openspec/specs/` (session-management, voting, sync, facilitation-flow)
+- Code standards: `openspec/specs/code-standards/spec.md`
+- UI/UX & design system: `openspec/specs/ui-ux/spec.md`
+- System architecture & sync: `openspec/specs/system-architecture/spec.md`
+- Domain rules: `openspec/specs/` (session-management, voting, facilitation-flow)
 - If code and spec disagree, fix the code — not the spec
