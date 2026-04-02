@@ -13,7 +13,10 @@ export const useSync = ({ adapter, sessionId, role, dispatch }: UseSyncOptions):
   sendAction: (action: SessionAction) => void;
 } => {
   const adapterRef = useRef(adapter);
-  adapterRef.current = adapter;
+
+  useEffect(() => {
+    adapterRef.current = adapter;
+  }, [adapter]);
 
   useEffect(() => {
     const currentAdapter = adapterRef.current;

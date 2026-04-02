@@ -38,14 +38,19 @@ export interface Round {
 
 export interface Session {
   id: string;
+  code: string;
+  title: string;
   participants: Participant[];
   scenarios: Scenario[];
   currentRound: Round | null;
   completedRounds: Round[];
-  status: 'lobby' | 'active' | 'ended';
+  status: 'lobby' | 'active' | 'ended' | 'finished';
 }
 
 export type SessionAction =
-  | { type: 'create-session'; payload: { sessionId: string; facilitator: Participant } }
+  | { type: 'create-session'; payload: { sessionId: string; code: string; title: string; facilitator: Participant; topics: string[] } }
   | { type: 'join'; payload: { participant: Participant } }
-  | { type: 'participant-left'; payload: { participantId: string } };
+  | { type: 'participant-left'; payload: { participantId: string } }
+  | { type: 'add-topic'; payload: { topic: Scenario } }
+  | { type: 'remove-topic'; payload: { topicId: string } }
+  | { type: 'start-session' };

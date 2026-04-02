@@ -5,6 +5,7 @@ export class LocalAdapter implements SyncAdapter {
   private channel: BroadcastChannel | null = null;
   private receiveCallback: ((action: SessionAction) => void) | null = null;
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   join(sessionId: string, _role: Role): void {
     this.channel = new BroadcastChannel(`session-${sessionId}`);
     this.channel.onmessage = (event: MessageEvent<SessionAction>) => {

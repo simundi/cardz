@@ -1,3 +1,4 @@
+/* eslint-disable react-refresh/only-export-components */
 import { createContext, useContext, useReducer, type Dispatch, type ReactNode } from 'react';
 import { sessionReducer, initialSession } from './reducer.ts';
 import type { Session, SessionAction } from './types.ts';
