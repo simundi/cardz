@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Button } from '../components/ui/button.tsx';
 import { Input } from '../components/ui/input.tsx';
+import ParticipantStrip from '../components/ParticipantStrip.tsx';
 import { useSession } from '../store/SessionContext.tsx';
 import { useCopyToClipboard } from '../hooks/useCopyToClipboard.ts';
 
@@ -75,13 +76,11 @@ const Lobby = (): JSX.Element => {
           {participants.length === 0 ? (
             <p className="text-muted-foreground text-sm">Waiting for participants to join…</p>
           ) : (
-            <ul className="space-y-1">
-              {participants.map((p) => (
-                <li key={p.id} className="rounded-md border px-3 py-2 text-sm">
-                  {p.name}
-                </li>
-              ))}
-            </ul>
+            <ParticipantStrip
+              participants={participants}
+              currentRound={null}
+              mode="lobby"
+            />
           )}
         </div>
 

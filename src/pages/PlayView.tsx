@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Button } from '../components/ui/button.tsx';
+import ParticipantStrip from '../components/ParticipantStrip.tsx';
 import { useSession } from '../store/SessionContext.tsx';
 import CardHand from '../components/CardHand.tsx';
 import VoteResults from '../components/VoteResults.tsx';
@@ -64,6 +65,12 @@ const PlayView = (): JSX.Element => {
           <p className="text-sm text-muted-foreground">Round {roundNumber} of {totalRounds}</p>
           <h1 className="text-xl font-bold tracking-tight">{currentScenario.description}</h1>
         </div>
+
+        <ParticipantStrip
+          participants={state.participants}
+          currentRound={currentRound}
+          mode={isRevealed ? 'revealed' : 'voting'}
+        />
 
         {isRevealed ? (
           <div className="space-y-4">

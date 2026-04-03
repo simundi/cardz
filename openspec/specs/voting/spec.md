@@ -55,7 +55,7 @@ REQ-38: WHEN the facilitator triggers reveal, all submitted votes SHALL be displ
 
 REQ-39: After reveal, the system SHALL display a summary of the vote distribution: how many participants voted for each level, and the overall spread (min, max).
 
-REQ-40: All `submit-vote` actions SHALL be broadcast via the SyncAdapter to all connected clients. The facilitator SHALL see a count of votes received (but not the values) during the voting phase.
+REQ-40: All `submit-vote` actions SHALL be broadcast via the SyncAdapter to all connected clients. During the voting phase, ALL users (facilitator and participants) SHALL see per-participant voting status — indicating which participants have voted and which are still waiting. Individual vote values SHALL NOT be visible until reveal. The facilitator SHALL also see the total vote count.
 
 ### Scenarios
 
@@ -66,10 +66,15 @@ THEN all participants see every submitted vote at the same time
 AND each vote displays the voter's name and their delegation level card
 AND the summary shows the distribution across levels (min: 2, max: 6)
 
-SCENARIO T — Facilitator sees vote count during voting
-GIVEN 3 out of 5 participants have submitted votes
-THEN the facilitator's host view shows "3 / 5 votes submitted"
+SCENARIO T — Facilitator sees per-participant voting status
+GIVEN 3 out of 5 participants have submitted votes during the voting phase
+THEN the facilitator's host view shows each participant's avatar with "Voted" or "Waiting" status
 AND the facilitator does NOT see the individual vote values until reveal
+
+SCENARIO T2 — Participants see per-participant voting status
+GIVEN 3 out of 5 participants have submitted votes during the voting phase
+THEN each participant's play view shows all participants' avatars with "Voted" or "Waiting" status
+AND no participant sees individual vote values until reveal
 
 ## 4. Responsiveness
 

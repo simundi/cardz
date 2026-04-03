@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Button } from '../components/ui/button.tsx';
+import ParticipantStrip from '../components/ParticipantStrip.tsx';
 import { useSession } from '../store/SessionContext.tsx';
 import CardHand from '../components/CardHand.tsx';
 import VoteResults from '../components/VoteResults.tsx';
@@ -23,9 +24,6 @@ const HostView = (): JSX.Element => {
 
   const isVoting = currentRound?.status === 'voting';
   const isRevealed = currentRound?.status === 'revealed';
-
-  const voteCount = currentRound?.votes.length ?? 0;
-  const totalParticipants = participants.length;
 
   useEffect(() => {
     setSelectedLevel(null);
@@ -67,12 +65,13 @@ const HostView = (): JSX.Element => {
         <div className="text-center space-y-2">
           <p className="text-sm text-muted-foreground">Round {roundNumber} of {totalRounds}</p>
           <h1 className="text-xl font-bold tracking-tight">{currentScenario.description}</h1>
-          {isVoting && (
-            <p className="text-sm text-muted-foreground">
-              {voteCount} / {totalParticipants} votes submitted
-            </p>
-          )}
         </div>
+
+        <ParticipantStrip
+          participants={participants}
+          currentRound={currentRound}
+          mode={isRevealed ? 'revealed' : 'voting'}
+        />
 
         {isVoting && !hasSubmitted && (
           <div className="space-y-4">

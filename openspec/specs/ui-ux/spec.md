@@ -80,3 +80,10 @@ All pages and components MUST be fully usable on screens >= 320px wide with no h
 #### Scenario: Minimum viewport
 - **WHEN** the app is viewed on a 320px wide screen
 - **THEN** all content SHALL be accessible without horizontal scrolling
+
+### Requirement: Avatar component in design system
+The shadcn Avatar component SHALL be installed and available as a design system primitive. It SHALL be used via `Avatar`, `AvatarImage`, and `AvatarFallback` sub-components following shadcn composition patterns.
+
+#### Scenario: Avatar component available
+- **WHEN** a component needs to display a user avatar
+- **THEN** it SHALL use the shadcn `Avatar` + `AvatarFallback` components from `src/components/ui/avatar.tsx`
