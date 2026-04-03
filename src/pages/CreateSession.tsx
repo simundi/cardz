@@ -61,6 +61,8 @@ const CreateSession = (): JSX.Element => {
     const code = generateRoomCode();
     const facilitatorId = crypto.randomUUID();
 
+    sessionStorage.setItem('facilitatorId', facilitatorId);
+
     dispatch({
       type: 'create-session',
       payload: {

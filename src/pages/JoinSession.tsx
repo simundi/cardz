@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { Button } from '../components/ui/button.tsx';
 import { Input } from '../components/ui/input.tsx';
@@ -9,11 +9,16 @@ import { generateParticipantName } from '../lib/generateParticipantName.ts';
 const JoinSession = (): JSX.Element => {
   const { code } = useParams<{ code: string }>();
   const navigate = useNavigate();
-  const { state, dispatch } = useSession();
+  const { state, dispatch, connectToSession, isConnecting } = useSession();
   const [name, setName] = useState('');
   const [error, setError] = useState('');
 
   const normalizedCode = code?.toUpperCase() ?? '';
+
+  useEffect(() => {
+    connectToSession(normalizedCode, 'participant');
+  }, [normalizedCode, connectToSession]);
+
   const sessionExists = state.code === normalizedCode;
   const sessionJoinable = sessionExists && state.status !== 'finished' && state.status !== 'ended';
 
@@ -23,6 +28,14 @@ const JoinSession = (): JSX.Element => {
 
   if (isFacilitator) {
     void navigate(`/session/${normalizedCode}`, { replace: true });
+  }
+
+  if (isConnecting) {
+    return (
+      <main className="flex flex-1 flex-col items-center justify-center px-4">
+        <p className="text-muted-foreground">Connecting to session…</p>
+      </main>
+    );
   }
 
   if (!sessionJoinable) {

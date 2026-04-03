@@ -1,17 +1,26 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import { Button } from '../components/ui/button.tsx';
 import { Input } from '../components/ui/input.tsx';
 import { useSession } from '../store/SessionContext.tsx';
 import { useCopyToClipboard } from '../hooks/useCopyToClipboard.ts';
 
 const Lobby = (): JSX.Element => {
-  const { state, dispatch } = useSession();
+  const { code: routeCode } = useParams<{ code: string }>();
+  const { state, dispatch, connectToSession } = useSession();
   const navigate = useNavigate();
+
+  const sessionCode = state.code || routeCode?.toUpperCase() || '';
+
+  useEffect(() => {
+    if (sessionCode) {
+      connectToSession(sessionCode, 'facilitator');
+    }
+  }, [sessionCode, connectToSession]);
   const { copied, copyToClipboard, fallbackUrl } = useCopyToClipboard();
   const [topicInput, setTopicInput] = useState('');
 
-  const joinUrl = `${window.location.origin}/join/${state.code}`;
+  const joinUrl = `${window.location.origin}/join/${sessionCode}`;
 
   const handleCopyLink = (): void => {
     copyToClipboard(joinUrl);
@@ -45,7 +54,7 @@ const Lobby = (): JSX.Element => {
 
   const handleStartSession = (): void => {
     dispatch({ type: 'start-session' });
-    void navigate(`/session/${state.code}`);
+    void navigate(`/session/${sessionCode}`);
   };
 
   const participants = state.participants.filter((p) => p.role === 'participant');
@@ -56,7 +65,7 @@ const Lobby = (): JSX.Element => {
       <div className="w-full max-w-lg space-y-6">
         <div className="text-center space-y-2">
           <h1 className="text-2xl font-bold tracking-tight">{state.title}</h1>
-          <p className="text-5xl font-mono font-bold tracking-widest">{state.code}</p>
+          <p className="text-5xl font-mono font-bold tracking-widest">{sessionCode}</p>
           <div className="flex justify-center gap-2 items-center">
             <Button variant="outline" size="sm" onClick={handleCopyLink}>
               {copied ? 'Link copied!' : 'Copy link'}

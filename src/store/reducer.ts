@@ -28,6 +28,10 @@ export const sessionReducer = (state: Session, action: SessionAction): Session =
       return handleRemoveTopic(state, action.payload);
     case 'start-session':
       return handleStartSession(state);
+    case 'sync-state':
+      return action.payload.session;
+    case 'request-state':
+      return state;
     default:
       return state;
   }

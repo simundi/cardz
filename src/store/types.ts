@@ -53,4 +53,6 @@ export type SessionAction =
   | { type: 'participant-left'; payload: { participantId: string } }
   | { type: 'add-topic'; payload: { topic: Scenario } }
   | { type: 'remove-topic'; payload: { topicId: string } }
-  | { type: 'start-session' };
+  | { type: 'start-session' }
+  | { type: 'request-state' }
+  | { type: 'sync-state'; payload: { session: Session } };

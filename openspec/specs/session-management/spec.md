@@ -63,7 +63,7 @@ REQ-14: The lobby screen SHALL display the session title, the 6-character room c
 
 REQ-15: WHEN the facilitator clicks "Copy link", the system SHALL copy the full join URL (https://[domain]/join/:code) to the clipboard and display a confirmation "Link copied!" for 2 seconds, then reset.
 
-REQ-16: The lobby screen SHALL display a real-time list of participants who have joined, updating within 2 seconds of each join event.
+REQ-16: The lobby screen SHALL display a real-time list of participants who have joined, updating within 2 seconds of each join event. Each participant entry SHALL display the participant's name. The list SHALL be visible to all connected clients — both the facilitator and any participants who have already joined.
 
 REQ-17: WHEN no participants have joined yet, the lobby screen SHALL display an empty state: "Waiting for participants to join…"
 
