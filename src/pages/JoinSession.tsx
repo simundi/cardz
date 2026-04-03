@@ -60,12 +60,15 @@ const JoinSession = (): JSX.Element => {
     }
 
     const uniqueName = generateParticipantName(trimmedName, state.participants);
+    const participantId = crypto.randomUUID();
+
+    sessionStorage.setItem('participantId', participantId);
 
     dispatch({
       type: 'join',
       payload: {
         participant: {
-          id: crypto.randomUUID(),
+          id: participantId,
           name: uniqueName,
           role: 'participant',
         },

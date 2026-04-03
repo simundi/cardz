@@ -54,5 +54,9 @@ export type SessionAction =
   | { type: 'add-topic'; payload: { topic: Scenario } }
   | { type: 'remove-topic'; payload: { topicId: string } }
   | { type: 'start-session' }
+  | { type: 'submit-vote'; payload: { participantId: string; level: DelegationLevel } }
+  | { type: 'reveal-round' }
+  | { type: 'next-round' }
+  | { type: 'end-session' }
   | { type: 'request-state' }
   | { type: 'sync-state'; payload: { session: Session } };
