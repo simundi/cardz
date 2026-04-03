@@ -71,7 +71,7 @@ REQ-18: The lobby screen SHALL allow the facilitator to add topics via an inline
 
 REQ-19: Each topic in the lobby list SHALL have a remove button. WHEN a topic is removed, the system SHALL update the list immediately without confirmation.
 
-REQ-20: The lobby screen SHALL display a "Start session" button. WHEN the facilitator clicks it, the system SHALL transition the session status from "lobby" to "voting" and navigate to the first topic.
+REQ-20: The lobby screen SHALL display a "Start session" button. WHEN the facilitator clicks it, the system SHALL transition the session status from "lobby" to "active" and render the host view for the facilitator and the play view for participants at `/session/:code`. The view rendered SHALL be determined by the participant's role (checked via facilitatorId in sessionStorage), not by separate URLs.
 
 REQ-21: The "Start session" button SHALL be disabled when the topics list is empty. WHEN at least one topic exists, the button SHALL become enabled.
 
@@ -138,7 +138,21 @@ AND sessions in lobby, voting, or revealed status are NOT affected
 - Session title contains special characters or emojis: stored and displayed as-is, no sanitization beyond length limit
 - "Copy link" clicked on browser without clipboard API: fallback to selectable text field showing the URL
 
-## 5. Out of scope
+## 5. Session ended
+
+### Requirements
+
+REQ-49: WHEN the facilitator triggers "End session", the session status SHALL transition from "active" to "ended". The system SHALL move the current round (if any) to `completedRounds`. All participants SHALL see a session-ended state within 2 seconds.
+
+### Scenarios
+
+SCENARIO O2 — Session ends
+GIVEN the facilitator clicks "End session"
+THEN session status becomes "ended"
+AND `currentRound` is moved to `completedRounds` and set to null
+AND all connected clients see the ended state within 2 seconds
+
+## 6. Out of scope
 
 - Email or SMS delivery of the join link
 - Password-protected sessions
